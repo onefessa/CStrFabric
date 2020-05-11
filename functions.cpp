@@ -20,7 +20,7 @@
 using namespace std;
 
 void scan(const char *input_file){
-    int mode; int sizemass = 2; int i=0;
+    string mode; int sizemass = 2; int i=0;
     char out_name[80];
     string curr;
     CString** mass = new CString* [sizemass];
@@ -32,13 +32,13 @@ void scan(const char *input_file){
         while(in>>mode){
             in>>out_name;
             in>>curr; //char *curr = (char*)CURR.c_str();
-            if(mode==0){
+            if(mode=="Hori"){
                 cout<<i<<" Read 0 ";
                 CString* tmp = new CString0(out_name, curr);
                 mass[i] = tmp;
                 cout<<mass[i]->f_name<<": "<<mass[i]->str<<"\t"<<(mass[i]->str).length()<<endl; i++;
             }
-            else if (mode==1){
+            else if (mode=="Vert"){
                 cout<<i<<" Read 1 ";
                 CString* tmp = new CString1(out_name, curr);
                 mass[i] = tmp;
@@ -47,10 +47,8 @@ void scan(const char *input_file){
             if(i==sizemass){
                mass=(CString**)realloc(mass, 2*i*sizeof(CString*));
                sizemass *= 2;
-              // cout<<"\n\n"<<sizemass<<"\n"<<endl;
             }
         }
-       // cout<<sizemass<<" "<<i<<endl;
         in.close();
         cout<<"----------------------------"<<endl;
         fstream clear_file1("file1", ios::out);
@@ -74,9 +72,9 @@ void scan(const char *input_file){
 }
 int fun(const char* myfileName){
   try{
-    map< int, unique_ptr<Factory> > factoryMap;
-    factoryMap[0] = unique_ptr<Factory> (new FactoryH);
-    factoryMap[1] = unique_ptr<Factory> (new FactoryV);
+    map< string, unique_ptr<Factory> > factoryMap;
+    factoryMap["Hori"] = unique_ptr<Factory> (new FactoryH);
+    factoryMap["Vert"] = unique_ptr<Factory> (new FactoryV);
     //const string myfileName = "t2.txt";
     ifstream myfile(myfileName, ios_base::in);
     string MF(myfileName);
@@ -86,7 +84,7 @@ int fun(const char* myfileName){
     }
 
     vector< shared_ptr<CString> > vectorVector;
-    string curr; int mode; string out_name;
+    string curr; string mode; string out_name;
 
     while (myfile>> mode) {
         myfile>>out_name;
