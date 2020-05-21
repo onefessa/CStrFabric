@@ -20,8 +20,7 @@ CString :: CString(const int dlina, const string& FileName){
     fstream clear_file(FileName, ios::out);
     clear_file.close();
     len = dlina;
-    char arr[dlina+1];
-    str = string(arr);
+    str.resize(dlina);
 }
 
 CString::CString(const string& FileName, const string& new_str){
@@ -46,7 +45,8 @@ CString::CString (const string& pstr){
 }
 void CString::SetZero() {
     //str = new string;
-    len = 1;
+   //str.resize(0);
+    len = 0;
     f_name = "test.txt";// = new char[20];
     fstream clear_file(f_name, ios::out);
     clear_file.close();
