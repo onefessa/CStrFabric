@@ -97,6 +97,15 @@ int fun(const char* myfileName){
         (*curVect).str = curr;
         vectorVector.push_back(curVect);
     }
+      
+      
+    // for (auto it = 0; it < factoryMap.size(); it++){
+        delete factoryMap["Hori"];
+    //}
+        delete factoryMap["Vert"];
+    //delete[] factoryMap; factoryMap = NULL; //MAP AUTOMATICALLY
+      
+      
     myfile.close();
     for (const auto& vect : vectorVector) {
         vect->output();
